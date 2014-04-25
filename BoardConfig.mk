@@ -126,4 +126,7 @@ BOARD_RECOVERY_SWIPE := true
 # Flags
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
+# Workaround for broken video recording when compiling thumb with -Os on FLO and HH
+AN_ASSHAT_HAS_BROKEN_MY_CAMERA_SOURCE := true
+
 -include vendor/lge/hammerhead/BoardConfigVendor.mk
