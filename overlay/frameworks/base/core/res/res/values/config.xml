@@ -119,11 +119,13 @@
     <!-- Default LED on time for notification LED in milliseconds. -->
     <integer name="config_defaultNotificationLedOn">1000</integer>
 
-    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option
     <bool name="config_intrusiveBatteryLed">true</bool>
+    -->
 
-    <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors -->
+    <!-- Does the battery LED support multiple colors? Used to decide if the user can change the colors
     <bool name="config_multiColorBatteryLed">true</bool>
+    -->
 
     <!-- reference volume index for music stream to limit headphone volume and display warning -->
     <integer name="config_safe_media_volume_index">6</integer>
@@ -271,19 +273,6 @@
 
     <!-- MMS user agent prolfile url -->
     <string name="config_mms_user_agent_profile_url" translatable="false">http://gsm.lge.com/html/gsm/Nexus5-M3.xml</string>
-
-    <!-- Disable lockscreen translucent decor by default -->
-    <bool name="config_enableLockScreenTranslucentDecor">true</bool>
-
-    <!-- Enable flashlight -->
-    <bool name="config_enableTorch">true</bool>
-
-    <!-- Enable the option to check proximity sensor when deciding whether to
-         turn the screen on
-         NOTE ! - Enable for devices that have a fast response proximity sensor
-    -->
-    <bool name="config_proximityCheckOnWake">false</bool>
-    <integer name="config_proximityCheckTimeout">400</integer>
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
