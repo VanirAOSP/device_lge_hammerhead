@@ -20,4 +20,7 @@
 
     <!-- PowerControl is deprecated, but it was shipped with this device -->
     <bool name="has_powercontrol_widget">true</bool>
+
+    <!-- Allow flash notifications: device has proper sysfs and perms in ramdisk -->
+    <bool name="has_sysfsForTorch">true</bool>
 </resources>
