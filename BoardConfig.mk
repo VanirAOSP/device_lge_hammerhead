@@ -109,8 +109,6 @@ BOARD_SEPOLICY_DIRS += \
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
-TARGET_KERNEL_TOOLCHAIN_VERSION := linaro-4.9
-TARGET_KERNEL_USE_AOSP_TOOLCHAIN := false
 
 # The list below is order dependent
 BOARD_SEPOLICY_UNION += \
@@ -163,8 +161,6 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 RECOVERY_FSTAB_VERSION := 2
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-# Flags
-COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 # Hardware
 BOARD_HARDWARE_CLASS := device/lge/hammerhead/cmhw
