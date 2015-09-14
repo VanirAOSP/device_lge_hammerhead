@@ -109,6 +109,8 @@ BOARD_SEPOLICY_DIRS += \
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
+TARGET_KERNEL_TOOLCHAIN_VERSION := linaro-4.9
+TARGET_KERNEL_USE_AOSP_TOOLCHAIN := false
 
 # The list below is order dependent
 BOARD_SEPOLICY_UNION += \
