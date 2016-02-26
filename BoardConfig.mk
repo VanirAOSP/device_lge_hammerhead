@@ -19,7 +19,6 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := krait
-TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 TARGET_NO_BOOTLOADER := true
 
@@ -72,6 +71,8 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 TARGET_NO_RPC := true
 
+BOARD_EGL_CFG := device/lge/hammerhead/egl.cfg
+
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
@@ -100,6 +101,11 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
+
+ifneq ($(filter hammerhead_fp aosp_hammerhead_fp,$(TARGET_PRODUCT)),)
+BOARD_HAS_FINGERPRINT_FPC := true
+endif
+
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_RECOVERY_FSTAB = device/lge/hammerhead/fstab.hammerhead
@@ -110,20 +116,26 @@ BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
 BOARD_SEPOLICY_DIRS += device/lge/hammerhead/sepolicy
 
+ifneq ($(filter hammerhead_fp aosp_hammerhead_fp,$(TARGET_PRODUCT)),)
+BOARD_SEPOLICY_DIRS += \
+       device/lge/hammerhead/sepolicy-hammerhead_fp
+
+# The list below is order dependent
+BOARD_SEPOLICY_UNION += \
+       device.te \
+       system_server.te \
+       file_contexts
+endif
+
 HAVE_ADRENO_SOURCE:= false
 
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
-# QCOM PowerHAL
-TARGET_POWERHAL_VARIANT := qcom
-TARGET_POWERHAL_SET_INTERACTIVE_EXT := device/lge/hammerhead/power/power_ext.c
+TARGET_TOUCHBOOST_FREQUENCY:= 1200
 
 USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
 USE_DEVICE_SPECIFIC_CAMERA:= true
-
-# Flags
-COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 ifeq ($(USE_SVELTE_KERNEL),true)
 MALLOC_IMPL := dlmalloc
@@ -131,7 +143,6 @@ endif
 
 # Hardware
 BOARD_HARDWARE_CLASS := device/lge/hammerhead/cmhw
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 
 # Recovery
 RECOVERY_FSTAB_VERSION := 2

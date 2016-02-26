@@ -220,13 +220,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     bdAddrLoader
 
-# I/O Scheduler
-PRODUCT_PROPERTY_OVERRIDES += \
-    sys.io.scheduler=cfq
-
-# QCOM Perf lib
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+PRODUCT_PACKAGES += \
+    power.hammerhead
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608
@@ -373,8 +368,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false \
-    dalvik.vm.heapminfree=2m
+    dalvik.vm.dex2oat-swap=false
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
@@ -388,7 +382,19 @@ PRODUCT_COPY_FILES += \
     device/lge/hammerhead/init.hammerhead.diag.rc.user:root/init.hammerhead.diag.rc
 endif
 
+ifneq ($(filter hammerhead_fp aosp_hammerhead_fp,$(TARGET_PRODUCT)),)
+PRODUCT_COPY_FILES += \
+    device/lge/hammerhead/init.hammerhead_fp.rc:root/init.hammerhead_fp.rc \
+    hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/fw_bcmdhd_fp.bin:system/vendor/firmware/fw_bcmdhd.bin \
+    hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/fw_bcmdhd_apsta.bin:system/vendor/firmware/fw_bcmdhd_apsta.bin
+
+PRODUCT_COPY_FILES += \
+    hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    hardware/broadcom/wlan/bcmdhd/config/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
+else
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/device-bcm.mk)
+endif
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
